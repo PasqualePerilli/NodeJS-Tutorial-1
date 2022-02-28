@@ -1,4 +1,4 @@
-const useValidURL = false; // Set to true to see a valid response. To false to see an error
+const useValidURL   = true; // Set to true to see a valid response. To false to see an error
 
 const axios         = require('axios').default;
 const webSite       = "https://reststop.randomhouse.com/";
