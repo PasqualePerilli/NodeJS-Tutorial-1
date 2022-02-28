@@ -1,12 +1,27 @@
-const axios = require('axios').default;
+const useValidURL = true; // Set to true to see a valid response. To false to see an error
 
-const req = axios.get("https://raw.githubusercontent.com/ibm-developer-skills-network/lkpho-Cloud-applications-with-Node.js-and-React/master/CD220Labs/async_callback/courseDetails.json");
-console.log(req);
-req.then(resp => {
-    let courseDetails = resp.data;
-    console.log(JSON.stringify(courseDetails,null,4))
+const axios       = require('axios').default;
+const folderPath  = "https://raw.githubusercontent.com/PasqualePerilli/NodeJS-Tutorial-1/master/CD220Labs/async_callback/";
+const realFile    = "courseDetails.json";
+const fakeFile    = "courseDetails.jason";
+const tab         = "\t";
+const newLine     = "\n";
+const correctURL  = folderPath + realFile;
+const fakeURL     = folderPath + fakeFile;
+var   urlToUse    = useValidURL == true ? correctURL : fakeURL;
+
+const request     = axios.get(urlToUse);
+
+
+console.log(newLine + "Printing request below: " + newLine + tab + JSON.stringify(request.toString()) + newLine);
+request.then(response => {
+    let courseDetails = response.data;
+    console.log(newLine + "Printing response below, obtained from request issued at URL: [" + urlToUse + "]");
+    console.log(newLine + JSON.stringify(courseDetails, null, 4) + newLine);
 })
-.catch(err => {
-    console.log(err.toString())
-    //This will console log the error withe the code. eg. Error: Request failed with status code 404
+.catch(error => {
+    console.log(newLine + "Obtained an error while attempting to connect to URL [" + urlToUse + "]");
+    console.log(newLine + tab + error.toString() + newLine); //This will console log the error withe the code. eg. Error: Request failed with status code 404
 });
+console.log("Finished calling request method for URL [" + urlToUse + "]" + newLine);
+console.log("----------------------------------------------------------");
