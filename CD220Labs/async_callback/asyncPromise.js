@@ -1,19 +1,19 @@
-var prompt = require('prompt-sync')();
-var fs = require('fs');
+var   prompt      = require('prompt-sync')();
+var   fileSystem  = require('fs');
+const readOnly    = "r";
+const encoding    = "utf8";
 
-const methCall = new Promise((resolve,reject)=>{
-    var filename = prompt('What is the name of the file ?');
+const readFile    = new Promise( (resolve, reject ) => {
+    var filename = prompt('What is the name of the file to be read? ');
     try {
-      const data = fs.readFileSync(filename, {encoding:'utf8', flag:'r'}); 
+      const data = fileSystem.readFileSync(filename, {encoding: encoding, flag: readOnly});
       resolve(data);
-    } catch(err) {
-      reject(err)
+    }
+    catch(error) {
+      reject(error);
     }
 });
 
-console.log(methCall);
+//console.log(readFile);
 
-methCall.then(
-  (data) => console.log(data),
-  (err) => console.log("Error reading file") 
-);
+readFile.then( (data) => console.log(data), (error) => console.log("Error reading file. Error is: [" + error + "]") );
