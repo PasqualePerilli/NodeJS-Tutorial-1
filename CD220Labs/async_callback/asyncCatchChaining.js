@@ -18,7 +18,7 @@ In the following code we try to get list of all book ids from remote url and the
 id. Finally print them all out. We are using axios get, which returns a promise.
 */
 const connectToURL            = (url) => {
-  console.log("Creating request object");
+  console.log("Creating request object for URL [" + url + "]");
   const request = axios.get(url);
   console.log("Request object created.");
   request.then(response => {
@@ -30,9 +30,11 @@ const connectToURL            = (url) => {
       }
       console.log("Mapping work data");
       return listOfWork.map( (work) => {
+          console.log(tab + "Found work ID [" + work.workid + "]");
           return work.workid;
       });
     }).then( (workIDs) => {
+        console.log("Finished mapping work data");
         console.log("Creating an array of promises for the " + workIDs.length + " work IDs received.");
         let arrayOfPromises = [];
         console.log("Looping over each returned work ID.");
